@@ -1,0 +1,43 @@
+<div class="container-fluid" style="margin-top: 50px;"> 
+    <div class="row">
+      <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
+        <div><h4>Listado de facturas</h4></div>
+        <div style="display: flex;gap:10px">
+          <button class="btn btn-success" [routerLink]="['/crearFactura']">Crear Factura</button>
+          <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+        </div>
+      </div>
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Nit Emisor</th>
+                <th>Emisor</th>
+                <th>Nit Receptor</th>
+                <th>Receptor</th>
+                <th>Fecha</th>
+                <th>Subtotal</th>
+                <th>IVA (19%)</th>
+                <th>Valor total</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let factura of facturas">
+                <td>{{factura.num_factura}}</td>
+                <td>{{ factura.nit_emisor }}</td>
+                <td>{{ factura.emisor }}</td>
+                <td>{{ factura.nit_receptor }}</td>
+                <td>{{ factura.receptor }}</td>
+                <td>{{ factura.created_at }}</td>
+                <td>{{ factura.valor_ant_iva }}</td>
+                <td>{{ factura.iva }}</td>
+                <td>{{ factura.valor_pagar }}</td>
+                <td><a class="btn btn-info" title="Editar Factura" [routerLink]="['/edicionFactura', factura.id]" style="color:#fff"><i class="bi bi-pencil-square"></i></a></td>
+                <td><button class="btn btn-danger" title="Eliminar Factura" (click)="eliminarFactura(factura.id)"><i class="bi bi-trash-fill"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

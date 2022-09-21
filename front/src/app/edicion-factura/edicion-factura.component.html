@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+        <form class="form-inline">
+            <h2>Edicion Factura No. <span>{{ num_factura }}</span></h2>
+            <div class="row">
+                <h6>Añadir Item</h6>
+                <div class="form-floating col">
+                    <input type="text" id="nueva_descripcion" class="form-control" [(ngModel)]="nueva_descripcion" name="nueva_descripcion">
+                    <label for="nueva_descripcion">Descripcion</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" id="nueva_cantidad" class="form-control" [(ngModel)]="nueva_cantidad" name="nueva_cantidad">
+                    <label for="nueva_cantidad">Cantidad</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" id="nuevo_valor_unitario" class="form-control" [(ngModel)]="nuevo_valor_unitario" name="nuevo_valor_unitario">
+                    <label for="nuevo_valor_unitario">Valor Unitario</label>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" title="Añadir Item" (click)="addItem()"><i class="bi bi-plus-square"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <h6>Información general factura</h6>
+                <div class="form-floating col">
+                    <input type="number" id="nit_emisor" class="form-control" [(ngModel)]="nit_emisor" name="nit_emisor" placeholder="Nit Emisor">
+                    <label for="nit_emisor">Nit Emisor</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" id="emisor" class="form-control" [(ngModel)]="emisor" name="emisor" placeholder="Emisor">
+                    <label for="emisor">Emisor</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="number" id="nit_receptor" class="form-control" [(ngModel)]="nit_receptor" name="nit_receptor" placeholder="Nit Receptor">
+                    <label for="nit_receptor">Nit Receptor</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" id="receptor" class="form-control" [(ngModel)]="receptor" name="receptor" placeholder="Receptor">
+                    <label for="receptor">Receptor</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-floating col">
+                    <input type="text" id="valor_ant_iva" class="form-control" [(ngModel)]="subtotal" name="subtotal" readonly disabled>
+                    <label for="valor_ant_iva">Subtotal</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" id="iva" class="form-control" [(ngModel)]="iva" name="iva" readonly disabled>
+                    <label for="iva">IVA</label>
+                </div>
+                <div class="form-floating col">
+                    <input type="text" id="total" class="form-control" [(ngModel)]="total" name="total" readonly disabled>
+                    <label for="total">Total</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <h6>Listado de items</h6>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Decripción</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Valor Unitario</th>
+                        <th scope="col">Valor Total</th>
+                        <th scope="col" colspan="2">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of items | keyvalue">
+                      <tr>
+                        <td><input type="text" value="{{ item.value.descripcion }}" (change)="modDescripcion(item.key, $event)"/></td>
+                        <td><input type="number" value="{{ item.value.cantidad }}" (change)="calcularCantidad(item.key, $event)" /></td>
+                        <td><input type="number" value="{{ item.value.val_unit }}" (change)="calcularValorUnitario(item.key, $event)" /></td>
+                        <td class="val_total_item">{{ item.value.val_total }}</td>
+                        <td><a class="btn btn-danger" title="Eliminar Item" (click)="eliminarItem(item.key)"><i class="bi bi-trash-fill"></i></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 d-flex" style="gap:5px">
+                    <button class="btn btn-info col" style="color:#fff" (click)="editar()">Editar</button>
+                <button class="btn btn-danger col" [routerLink]="['/listadoFacturas']">Volver</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

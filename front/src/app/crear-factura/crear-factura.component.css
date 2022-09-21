@@ -1,0 +1,21 @@
+form{
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+h2{
+    font-weight: 300;
+}
+span{
+    color: orange;
+}
+
+.form-floating>label{
+    left: 15px!important;
+}
+
+button, .row{
+    margin-top: 20px;
+}
